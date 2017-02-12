@@ -20,17 +20,19 @@ bot = telebot.TeleBot(bot_token)
 DEBUG = True
 PORT = 8000
 HOST = '0.0.0.0'
+
 app = Flask(__name__)
 app.secret_key = flask_secret_key
 
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.login_view = '/check'
 
 
 @login_manager.user_loader
-def load_user(userid):
+def load_user(uid):
     try:
-        return models.User.get(models.User.id == userid)
+        return models.User.get(models.User.id == uid)
     except models.DoesNotExist:
         return None
 
@@ -65,6 +67,7 @@ def check():
         p_hash = generate_password_hash(password)
         models.User.update(temp_password=p_hash).where(models.User.uid == uid).execute()
 
+        # next line is for offline debug
         # form.value.data = password
         bot.send_message(uid, "Your secret code: {}".format(password))
         form.value.data = ''
@@ -102,11 +105,11 @@ def login():
         return redirect(url_for('check'))
 
 
-@login_required
 @app.route("/logout")
+@login_required
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('dashboard'))
 
 
 @app.route("/dashboard")
