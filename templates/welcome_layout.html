@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="static/welcome.css">
+    <title>{% block title %}{% endblock %}
+    </title>
+  </head>
+  <body>
+    <header>
+      {% block form %}
+      {% endblock %}
+      {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+      {% for category, message in messages %}
+        <div id="flashes">
+          {{ message}}
+        </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </header>
+    <div id="about">
+      <pre>
+        $> pwd
+        /disconnect/
+        $> man disconnect
+
+
+        ### about disconnect ###
+        disconnect – anonymous social network
+        one can log in via telegram
+        to obtain your login contact @NikonovBot
+        disconnect keeps <span style='text-decoration: underline;'>nothing</span> about you
+        <i>
+        NO: email, password, name, IP
+        YES: end-to-end encrypted messages
+        </i>
+        its just your <b>encrypted telegram uid</b>
+        
+      </pre>
+    </div>
+    <footer>
+      disconnect® by **** 2017
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'welcome_layout.html' %}
+
+{% block form %}
+{% from 'macros.html' import render_field %}
+<form method="post" action="{{ form_action }}" id='form'>
+  disconnect$ {{ text }}>
+  {{ form.hidden_tag() }}
+  {% for field in form %}
+      {{ render_field(field) }}
+  {% endfor %}
+    <input type="hidden" name="hidden_value" value="{{ hidden_value }}"/>
+    <button type="submit" id="submit">&lt;enter&gt;</button>
+</form>
+{% endblock %}
