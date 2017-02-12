@@ -1,0 +1,10 @@
+
+*.pyc
+
+*.iml
+
+*.xml
+
+config.py
+
+disconnect.db
