@@ -1,5 +1,5 @@
 import models
-from Crypto.Cipher import DES
+from Crypto.Cipher import AES
 
 
 def uid_check(uid):
@@ -11,17 +11,16 @@ def uid_check(uid):
         raise models.DoesNotExist
     return uid
 
-def encrypt(key, iv):
-    pass
+
+def encrypt(key, iv, text):
+    # Encryption
+    encryption_suite = AES.new(key, AES.MODE_CFB, iv)
+    text = encryption_suite.encrypt("A not really secret message. Not for prying eyes.")
+    return text
 
 
-def decrypt(key, iv):
-    pass
-
-# Encryption
-encryption_suite = AES.new('This is a key123', AES.MODE_CFB, 'This is an IV456')
-cipher_text = encryption_suite.encrypt("A not really secret message. Not for prying eyes.")
-
-# Decryption
-decryption_suite = AES.new('This is a key123', AES.MODE_CFB, 'This is an IV456')
-plain_text = decryption_suite.decrypt(cipher_text)
+def decrypt(key, iv, text):
+    # Decryption
+    decryption_suite = AES.new(key, AES.MODE_CFB, iv)
+    text = decryption_suite.decrypt(text)
+    return text
