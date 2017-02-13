@@ -14,6 +14,18 @@ class User(UserMixin, Model):
         order_by = ('-uid',)
 
 
+class EditorPick(Model):
+    """ Model for Editor's pick art & music content"""
+    # 0 - art, 1 - music
+    # Adding genres later
+
+    cat = IntegerField()
+    content = CharField()
+
+    class Meta:
+        database = DATABASE
+
+
 def initialize():
         DATABASE.connect()
         DATABASE.create_tables([User], safe=True)
