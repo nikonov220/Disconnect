@@ -8,6 +8,7 @@ class User(UserMixin, Model):
     uid = CharField(unique=True)
     username = CharField(unique=True, default='')
     temp_password = CharField(default='none')
+    admin = BooleanField(default=False)
 
     class Meta:
         database = DATABASE
@@ -28,5 +29,5 @@ class EditorPick(Model):
 
 def initialize():
         DATABASE.connect()
-        DATABASE.create_tables([User], safe=True)
+        DATABASE.create_tables([User, EditorPick], safe=True)
         DATABASE.close()
