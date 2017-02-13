@@ -27,7 +27,7 @@ app.secret_key = flask_secret_key
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = '/check'
-
+login_manager.login_message = "login_required"
 
 @login_manager.user_loader
 def load_user(uid):
