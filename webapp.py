@@ -115,7 +115,8 @@ def logout():
 
 @app.route("/dashboard")
 def dashboard():
-    return render_template('dashboard.html')
+    music_stream = models.EditorPick.select().where(models.EditorPick.cat == 1)
+    return render_template('dashboard.html', music_stream=music_stream)
 
 if __name__ == '__main__':
     models.initialize()
