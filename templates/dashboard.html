@@ -1,1 +1,5 @@
-Hi
+<html>
+{% for post in music_stream %}
+    {{ post.content|safe }}
+{% endfor %}
+</html>
