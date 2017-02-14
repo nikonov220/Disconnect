@@ -1,7 +1,7 @@
 import telebot
 
 import models
-from config import bot_token
+from config import bot_token, master_uid
 models.initialize()
 bot = telebot.TeleBot(bot_token)
 
@@ -57,7 +57,7 @@ def add_music(message):
 @bot.message_handler(commands=['me'])
 def me(message):
     try:
-        username = models.User.get(models.User.uid == message.chat.id).uid
+        username = models.User.get(models.User.uid == message.chat.id).username
     except models.DoesNotExist:
         bot.send_message(message.chat.id, "You have no permanent account\n/create will get you one!")
     else:
@@ -74,7 +74,6 @@ def send_welcome(message):
 
 while True:
     try:
-        bot.send_message(32037551, "Started!")
         bot.polling(none_stop=True)
     except Exception as e:
-        print("Crashed with {}".format(e))
+        bot.send_message(master_uid, "Crashed with {}".format(e))
