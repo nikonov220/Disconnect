@@ -43,14 +43,13 @@ def add_music(message):
         return 1
     try:
         content = message.text.split()[1:]
-        content = "".join(content)
+        content = " ".join(content)
     except IndexError:
         bot.send_message(message.chat.id, "It's /add_music <soundcloud_iframe>")
         return 1
 
     if admin:
-        models.EditorPick.create(cat='1',
-                                 content=content)
+        models.EditorPick.create(cat='1', content=content)
         bot.send_message(message.chat.id, "Added your post!")
 
 
@@ -67,6 +66,11 @@ def me(message):
             bot.send_message(message.chat.id, "No username was set")
 
 
+@bot.message_handler(func=lambda message: message.text.lower() == "ping")
+def pong(message):
+    bot.send_message(message.chat.id, "Pong!")
+
+
 @bot.message_handler(func=lambda m: True)
 def send_welcome(message):
     bot.send_message(message.chat.id, "Your login:\n{}".format(message.chat.id))
@@ -77,3 +81,6 @@ while True:
         bot.polling(none_stop=True)
     except Exception as e:
         bot.send_message(master_uid, "Crashed with {}".format(e))
+    except KeyboardInterrupt:
+        break
+print("Bye!")
